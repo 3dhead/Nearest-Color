@@ -1,0 +1,26 @@
+{
+  "name": "nearestcolor",
+  "version": "1.0.0",
+  "description": "Finding the nearest color in a set",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bumler/Nearest-Color.git"
+  },
+  "keywords": [
+    "Color"
+  ],
+  "author": "Henry Bulmer",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Bumler/Nearest-Color/issues"
+  },
+  "homepage": "https://github.com/Bumler/Nearest-Color#readme",
+  "devDependencies": {
+    "eslint": "^5.16.0",
+    "eslint-config-google": "^0.12.0"
+  }
+}
