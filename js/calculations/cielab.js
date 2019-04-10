@@ -72,9 +72,9 @@ const cieLabCalculator = (function() {
 
     const hPr1 = toDegrees( Math.atan2(lA.B, aPr1)) % 360;
     const hPr2 = toDegrees( Math.atan2(lB.B, aPr2)) % 360;
-    const dhPr = calculateDeltaHPrime(hPr1, hPr2);
+    const dhPr = cPr1 == 0 || cPr2 == 0 ? 0 : calculateDeltaHPrime(hPr1, hPr2);
     const dHPr = 2 * Math.sqrt( cPr1 * cPr2 ) * Math.sin( dhPr / 2 );
-    const avHPr = calculateAverageHPrime(hPr1, hPr2);
+    const avHPr = calculateAverageHPrime( cPr1, cPr2, hPr1, hPr2);
     const T = 1 - (.17 * Math.cos(avHPr - 30) + (.24 * Math.cos( 3 * avHPr + 6)) - (.20 * Math.cos(4 * avHPr - 63)));
     const SH = 1 + .015 * avCPr * T;
 
@@ -117,19 +117,25 @@ const cieLabCalculator = (function() {
 
   /**
  * Calculates the average H prime value.
+ * @param {number} cPr1 - C Prime sub 1.
+ * @param {number} cPr2 - C Prime sub 2.
  * @param {number} hPr1 - H Prime sub 1.
  * @param {number} hPr2 - H Prime sub 2.
  * @return {number}.
  */
-  function calculateAverageHPrime( hPr1, hPr2 ) {
+  function calculateAverageHPrime( cPr1, cPr2, hPr1, hPr2 ) {
     const hDiff = hPr1 - hPr2;
 
+    if (cPr1 == 0 || cPr2 == 0) {
+      return hPr1 + hPr2;
+    }
+
     if (hDiff <= 180) {
-      return (hPr2 - hPr1) / 2;
+      return (hPr2 + hPr1) / 2;
     } else if (hDiff > 180 && hPr1 + hPr2 < 360) {
-      return (hPr2 - hPr1 + 360) / 2;
+      return (hPr2 + hPr1 + 360) / 2;
     } else {
-      return (hPr2 - hPr1 - 360) / 2;
+      return (hPr2 + hPr1 - 360) / 2;
     }
   }
 
