@@ -53,9 +53,9 @@ const cieLabCalculator = (function() {
     const kC = weight.Chromacity;
     const kH = weight.Hue;
 
-    const dL = lB.L - lA.L;
+    const dLPr = lB.L - lA.L;
     const avL = (lA.L + lB.L) / 2;
-    const SL = 1 + (( Math.pow( .015 * (avL - 50), 2) )
+    const SL = 1 + ( .015 * ( Math.pow( (avL - 50), 2) )
                 / ( Math.sqrt( 20 + Math.pow((avL - 50), 2) )));
 
     const C1 = Math.sqrt( Math.pow( lA.A, 2 ) + Math.pow( lA.B, 2));
@@ -75,14 +75,14 @@ const cieLabCalculator = (function() {
     const dhPr = cPr1 == 0 || cPr2 == 0 ? 0 : calculateDeltaHPrime(hPr1, hPr2);
     const dHPr = 2 * Math.sqrt( cPr1 * cPr2 ) * Math.sin( dhPr / 2 );
     const avHPr = calculateAverageHPrime( cPr1, cPr2, hPr1, hPr2);
-    const T = 1 - (.17 * Math.cos(avHPr - 30) + (.24 * Math.cos( 3 * avHPr + 6)) - (.20 * Math.cos(4 * avHPr - 63)));
+    const T = 1 - (.17 * Math.cos(avHPr - 30) + (.24 * Math.cos(2 * avHPr)) + (.32 * Math.cos( 3 * avHPr + 6)) - (.20 * Math.cos(4 * avHPr - 63)));
     const SH = 1 + .015 * avCPr * T;
 
     const RT = -2
                 * Math.sqrt( Math.pow(avCPr, 7) / (Math.pow(avCPr, 7) + Math.pow(25, 7)) )
                 * Math.sin(60 * Math.exp( -1 * Math.pow( (avHPr - 275)/ 25 ), 2 ));
 
-    return Math.sqrt( Math.pow( (dL / ( kL * SL )), 2) +
+    return Math.sqrt( Math.pow( (dLPr / ( kL * SL )), 2) +
                       Math.pow( (dCPr / ( kC * SC )), 2) +
                       Math.pow( (dHPr / (kH * SH )), 2) +
                       (RT * (dCPr / (kC * SC)) * (dHPr / (kH * SH)) ));
