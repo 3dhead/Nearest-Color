@@ -85,7 +85,7 @@ const cieLabCalculator = (function() {
     return Math.sqrt( Math.pow( (dL / ( kL * SL )), 2) +
                       Math.pow( (dCPr / ( kC * SC )), 2) +
                       Math.pow( (dHPr / (kH * SH )), 2) +
-                      (RT * (dCPr / (KC * SC)) * (dHPr / (kH * SH)) ));
+                      (RT * (dCPr / (kC * SC)) * (dHPr / (kH * SH)) ));
   }
 
   /**
@@ -136,6 +136,7 @@ const cieLabCalculator = (function() {
   return {
     nearestColor: nearestColor,
     weight: weight,
+    deltaE: deltaE,
   };
 })();
 
