@@ -49,6 +49,7 @@ const cieLabCalculator = (function() {
  * @return {int} Returns the index of the color with smallest DeltaE with input.
  */
   function deltaE( lA, lB ) {
+    debugger;
     const kL = weight.Light;
     const kC = weight.Chromacity;
     const kH = weight.Hue;
@@ -73,14 +74,18 @@ const cieLabCalculator = (function() {
     const hPr1 = toDegrees( Math.atan2(lA.B, aPr1)) % 360;
     const hPr2 = toDegrees( Math.atan2(lB.B, aPr2)) % 360;
     const dhPr = cPr1 == 0 || cPr2 == 0 ? 0 : calculateDeltaHPrime(hPr1, hPr2);
-    const dHPr = 2 * Math.sqrt( cPr1 * cPr2 ) * Math.sin( dhPr / 2 );
+    const dHPr = 2 * Math.sqrt( cPr1 * cPr2 ) * Math.sin( toRadians( dhPr / 2 ));
     const avHPr = calculateAverageHPrime( cPr1, cPr2, hPr1, hPr2);
-    const T = 1 - (.17 * Math.cos(avHPr - 30) + (.24 * Math.cos(2 * avHPr)) + (.32 * Math.cos( 3 * avHPr + 6)) - (.20 * Math.cos(4 * avHPr - 63)));
+    const T = 1
+                - (.17 * Math.cos( toRadians( avHPr - 30))
+                + (.24 * Math.cos( toRadians( 2 * avHPr)))
+                + (.32 * Math.cos( toRadians( 3 * avHPr + 6)))
+                - (.20 * Math.cos( toRadians( 4 * avHPr - 63))));
     const SH = 1 + .015 * avCPr * T;
 
     const RT = -2
                 * Math.sqrt( Math.pow(avCPr, 7) / (Math.pow(avCPr, 7) + Math.pow(25, 7)) )
-                * Math.sin(60 * Math.exp( -1 * Math.pow( (avHPr - 275)/ 25 ), 2 ));
+                * Math.sin( toRadians( 60 * Math.exp( - ( Math.pow( (avHPr - 275)/ 25 ), 2 ))));
 
     return Math.sqrt( Math.pow( (dLPr / ( kL * SL )), 2) +
                       Math.pow( (dCPr / ( kC * SC )), 2) +
@@ -95,6 +100,15 @@ const cieLabCalculator = (function() {
  */
   function toDegrees( radians ) {
     return radians * ( 180 / pi );
+  }
+
+  /**
+ * Converts from a degree value to radians.
+ * @param {number} degrees - The degree value to conver.
+ * @return {number} The converted value in radians.
+ */
+  function toRadians( degrees ) {
+    return degrees * ( Math.PI / 180 );
   }
 
   /**
