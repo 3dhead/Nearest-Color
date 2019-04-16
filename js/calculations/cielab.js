@@ -1,36 +1,52 @@
 /* eslint-disable linebreak-style */
 /* eslint-disable max-len */
 
-const cieLabCalculator = (function() {
-  const weight = {Chromacity: 1, Light: 1, Hue: 1};
-  const pi = Math.PI;
+const comparisonFormats = {
+  CIELAB: 'lab',
+};
+
+const nearestColorFinder = (function() {
+  /**
+ * @param {rgbColor} rgbColor - The input color in rgb.
+ * @param {rgbColor[]} rgbColors - The set of colors to compare to.
+ * @param {string} comparisonFormat - The format the colors should be compared with.
+ * @return {int} Returns the index of the closest color.
+ */
+  function nearestColor( rgbColor, rgbColors, comparisonFormat ) {
+    switch (comparisonFormat) {
+      case comparisonFormats.CIELAB:
+        return smallestLabDelta( rgbColor, rgbColors );
+    }
+  }
 
   /**
  * @param {rgbColor} rgbColor - The input color in rgb.
  * @param {rgbColor[]} rgbColors - The set of colors to compare to.
  * @return {int} Returns the index of the closest color.
  */
-  function nearestColor( rgbColor, rgbColors ) {
+  function smallestLabDelta( rgbColor, rgbColors ) {
     const xyzColor = xyzConverter.convert( rgbColor );
     const xyzColors = rgbColors.map( (c) => (xyzConverter.convert(c)) );
 
     const labColor = labConverter.convert( xyzColor );
     const labColors = xyzColors.map( (c) => (labConverter.convert(c)) );
 
-    return smallestDeltaE(labColor, labColors);
+    return smallestDelta( labColor, labColors, cieLabCalculator.deltaE );
   }
 
   /**
- * @param {labColor} labColor - The input color in LAB.
- * @param {labColor[]} labColors - An array of LAB colors to be compared to.
+ * @callback colorDeltaFunc(color, colors)
+ * @param {color} color - The input color.
+ * @param {color[]} colors - An array of colors to be compared to.
+ * @param {colorDeltaFunc} colorDeltaFunc(color, colors) - The function to determine difference in color.
  * @return {int} Returns the index of the color with smallest DeltaE with input.
  */
-  function smallestDeltaE( labColor, labColors ) {
-    let smallestDelta = 100000000;
+  function smallestDelta( color, colors, colorDeltaFunc ) {
+    let smallestDelta = Number.MAX_SAFE_INTEGER;
     let smallestIndex = 0;
 
-    for (let i = 0; i < labColors.length; i++) {
-      const currentDelta = deltaE(labColor, labColors[i]);
+    for (let i = 0; i < colors.length; i++) {
+      const currentDelta = colorDeltaFunc(color, colors[i]);
 
       if (currentDelta < smallestDelta) {
         smallestDelta = currentDelta;
@@ -41,6 +57,15 @@ const cieLabCalculator = (function() {
     return smallestIndex;
   }
 
+  return {
+    nearestColor: nearestColor,
+  };
+})();
+
+const cieLabCalculator = (function() {
+  const weight = {Chromacity: 1, Light: 1, Hue: 1};
+  const pi = Math.PI;
+
   /**
  * CIEDE2000 https://en.wikipedia.org/wiki/Color_difference
  * Calculates the DeltaE between two LAB colors using the CIEDE2000 formula.
@@ -48,8 +73,7 @@ const cieLabCalculator = (function() {
  * @param {labColor} lB - LAB Color B.
  * @return {int} Returns the index of the color with smallest DeltaE with input.
  */
-  function deltaE( lA, lB ) {
-    debugger;
+  function deltaE00( lA, lB ) {
     const kL = weight.Light;
     const kC = weight.Chromacity;
     const kH = weight.Hue;
@@ -154,9 +178,8 @@ const cieLabCalculator = (function() {
   }
 
   return {
-    nearestColor: nearestColor,
     weight: weight,
-    deltaE: deltaE,
+    deltaE: deltaE00,
   };
 })();
 
