@@ -11,12 +11,33 @@
 
     <!-- C S S -->
     <link href="styles/general.css" rel="stylesheet">
-    
-    <!-- J S -->
-    <script src = "js\calculations\cielab.js"></script>
   </head>
 
   <body>
-    <div>Hello</div>
+    <div>
+      <div>
+        <span>R: <input data-bind="value: inputColor.R" /></span> 
+        <span>G: <input data-bind="value: inputColor.G"/></span>
+        <span>B: <input data-bind="value: inputColor.B"/></span>
+      </div>
+      <div>
+        <span>R: <strong data-bind="text: inputColor.R"></strong></span> 
+        <span>G: <strong data-bind="text: inputColor.G"></strong></span>
+        <span>B: <strong data-bind="text: inputColor.B"></strong></span>
+      </div>
+    </div>
+
+    <div>
+      <span data-bind="foreach: comparisonSet">
+        <strong data-bind="text: Name"></strong>
+      </span>
+    </div>
   </body>
 </html>
+
+ <!-- E X T E R N A L  J S -->
+ <script src="node_modules\knockout\build\output\knockout-latest.js"></script>
+
+<!-- J S -->
+<script src = "js\app.js"></script>
+<script src = "js\calculations\cielab.js"></script>

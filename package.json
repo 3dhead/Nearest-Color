@@ -26,6 +26,7 @@
     "gulp": "^4.0.0"
   },
   "dependencies": {
-    "gulp-cli": "^2.1.0"
+    "gulp-cli": "^2.1.0",
+    "knockout": "^3.5.0"
   }
 }
