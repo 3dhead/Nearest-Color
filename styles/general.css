@@ -1,0 +1,12 @@
+.top-mar-y {
+    margin-top: 10px;
+}
+
+.top-mar-yy {
+    margin-top: 20px;
+}
+
+/* This is just to resolve a bootstrap error for PoC */
+.lazy-fix {
+    margin-left: 0px;
+}

@@ -10,48 +10,87 @@
     <title>Nearest Color</title>
 
     <!-- C S S -->
+    <link href="node_modules\bootstrap\dist\css\bootstrap.min.css" rel="stylesheet">
     <link href="styles/general.css" rel="stylesheet">
   </head>
 
   <body>
-    <div>
-      <h3>Input a Color</h3>
-      <div>
-        <span>R: <input data-bind="value: inputColor.R" /></span> 
-        <span>G: <input data-bind="value: inputColor.G"/></span>
-        <span>B: <input data-bind="value: inputColor.B"/></span>
+    <div class="container top-mar-yy">
+      <h1 class="row">Nearest Color Finder</h1>
+      
+      <div class="top-mar-yy">
+        <h3 class="row">Input Color</h3>
+        <div class="row">
+          <div class="input-group mb-3 col">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">R</span>
+              </div>
+              <input type="text" class="form-control" input data-bind="value: inputColor.R">
+            </div>
+            <div class="input-group mb-3 col">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">G</span>
+              </div>
+              <input type="text" class="form-control" input data-bind="value: inputColor.G">
+            </div>
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">B</span>
+                </div>
+                <input type="text" class="form-control" input data-bind="value: inputColor.B">
+            </div>
+        </div>
       </div>
-      <div>
-        <span>R: <strong data-bind="text: inputColor.R"></strong></span> 
-        <span>G: <strong data-bind="text: inputColor.G"></strong></span>
-        <span>B: <strong data-bind="text: inputColor.B"></strong></span>
-      </div>
-    </div>
 
-    <div>
-      <h3>Comparison Colors</h3>
-      <span data-bind="foreach: comparisonSet">
-        <strong data-bind="text: Name"></strong>
-      </span>
-    </div>
-
-    <div>
-      <h3>Add a Color to the Set</h3>
-      <div>
-        <span>R: <input data-bind="value: addColor().R" /></span> 
-        <span>G: <input data-bind="value: addColor().G"/></span>
-        <span>B: <input data-bind="value: addColor().B"/></span>
-        <span>Name: <input data-bind="value: addColor().Name"/></span>
+      <div class="top-mar-yy">
+        <h3 class="row">Comparison Colors</h3>
+        <span class="row" data-bind="foreach: comparisonSet">
+          <strong class="col" data-bind="text: Name"></strong>
+        </span>
       </div>
-      <button data-bind="click: addColorToSet">Add Color</button>
-    </div>
 
-    <div>
-      <h3>The Closest Color is...</h3>
-      <div>
-        <strong data-bind="text: closestColor().Name"></strong>
+      <div class="top-mar-yy">
+        <h3 class="row">Add a Color to the Set</h3>
+        <div class="row">
+          <div class="input-group mb-3 col">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">R</span>
+            </div>
+            <input type="text" class="form-control" input data-bind="value: addColor.R">
+          </div>
+          <div class="input-group mb-3 col">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="basic-addon1">G</span>
+            </div>
+            <input type="text" class="form-control" input data-bind="value: addColor.G">
+          </div>
+          <div class="input-group mb-3 col">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">B</span>
+              </div>
+              <input type="text" class="form-control" input data-bind="value: addColor.B">
+          </div>
+        </div>
+
+        <div class="row input-group mb-3 top-mar-y lazy-fix">
+            <input data-bind="value: addColorName" 
+            type="text" class="form-control" placeholder="Custom Color Name">
+            <div class="input-group-append">
+              <button data-bind="click: addColorToSet" 
+              class="btn btn-outline-secondary" type="button" id="button-addon2">
+                Add Color
+              </button>
+            </div>
+        </div>
       </div>
-    </div>
+
+      <div class="top-mar-yy">
+        <h3 class="row">The Closest Color is...</h3>
+        <div class="row">
+          <h2 class="col" data-bind="text: closestColor().Name"></h2>
+        </div>
+      </div>
+  </div>
   </body>
 </html>
 
