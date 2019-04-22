@@ -8,20 +8,21 @@ function AppViewModel() {
 
   this.inputColor = new ObservableRgb(0, 0, 0);
   this.comparisonSet = ko.observableArray(colorSetGenerator.rainbowSet());
-
-  this.addColor = ko.observable(new RgbColor(0, 0, 0, ''));
+  this.addColor = new ObservableRgb(0, 0, 0);
+  this.addColorName = ko.observable('');
 
   this.closestColor = ko.pureComputed(function() {
-    const iC = nearestColorFinder.nearestColor(
+    const smallestIndex = nearestColorFinder.nearestColor(
         self.inputColor.toRgbColor(), self.comparisonSet(),
         comparisonFormats.CIELAB);
 
-    return self.comparisonSet()[iC];
+    return self.comparisonSet()[smallestIndex];
   });
 
   this.addColorToSet = function() {
-    self.comparisonSet.push(self.addColor);
-    self.addColor = ko.observable(new RgbColor(0, 0, 0, ''));
+    const colorToAdd = self.addColor.toRgbColor();
+    colorToAdd.Name = self.addColorName;
+    self.comparisonSet.push(colorToAdd);
   };
 
   this.removeColor = function(color) {
