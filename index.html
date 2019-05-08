@@ -19,33 +19,14 @@
       <h1 class="row">Nearest Color Finder</h1>
       
       <div class="top-mar-yy">
-        <h3 class="row">Input Color</h3>
-        <div class="row">
-          <div class="input-group mb-3 col">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">R</span>
-              </div>
-              <input type="text" class="form-control" input data-bind="value: inputColor.R">
-            </div>
-            <div class="input-group mb-3 col">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">G</span>
-              </div>
-              <input type="text" class="form-control" input data-bind="value: inputColor.G">
-            </div>
-            <div class="input-group mb-3 col">
-                <div class="input-group-prepend">
-                  <span class="input-group-text" id="basic-addon1">B</span>
-                </div>
-                <input type="text" class="form-control" input data-bind="value: inputColor.B">
-            </div>
-        </div>
-      </div>
-
-      <div class="top-mar-yy">
         <h3 class="row">Comparison Colors</h3>
         <span class="row" data-bind="foreach: comparisonSet">
-          <strong class="col" data-bind="text: Name"></strong>
+          <div class="col">
+            <div class="color-block top-mar-y" data-bind="style: { 'background-color' : StyleFormat }">
+                <strong class="color-label color-name" data-bind="text: Name"></strong>
+                <strong class="color-label" data-bind="text: StyleFormat"></strong>
+            </div>
+          </div>
         </span>
       </div>
 
@@ -83,6 +64,30 @@
             </div>
         </div>
       </div>
+
+      <div class="top-mar-yy">
+          <h3 class="row">Input Color</h3>
+          <div class="row">
+            <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">R</span>
+                </div>
+                <input type="text" class="form-control" input data-bind="value: inputColor.R">
+              </div>
+              <div class="input-group mb-3 col">
+                <div class="input-group-prepend">
+                  <span class="input-group-text" id="basic-addon1">G</span>
+                </div>
+                <input type="text" class="form-control" input data-bind="value: inputColor.G">
+              </div>
+              <div class="input-group mb-3 col">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="basic-addon1">B</span>
+                  </div>
+                  <input type="text" class="form-control" input data-bind="value: inputColor.B">
+              </div>
+          </div>
+        </div>
 
       <div class="top-mar-yy">
         <h3 class="row">The Closest Color is...</h3>

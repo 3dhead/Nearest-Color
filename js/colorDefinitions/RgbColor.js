@@ -12,9 +12,14 @@ class RgbColor {
      * @param {string} name Name of the color.
      */
   constructor(r, g, b, name) {
-    this.R = r;
-    this.G = g;
-    this.B = b;
-    this.Name = name;
+    const self = this;
+    self.R = r;
+    self.G = g;
+    self.B = b;
+    self.Name = name;
+
+    self.StyleFormat = ko.pureComputed(function() {
+      return `rgb(${self.R}, ${self.G}, ${self.B})`;
+    }, self);
   }
 }

@@ -10,3 +10,20 @@
 .lazy-fix {
     margin-left: 0px;
 }
+
+.color-block {
+    height: 115px;
+    width: 115px;
+    border-radius: 10px;
+}
+
+.color-label {
+    display: flex;
+    padding: 10px 10px 0px 10px;
+    color: white;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.color-name {
+    font-size: 22px;
+}

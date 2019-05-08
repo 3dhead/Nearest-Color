@@ -10,9 +10,10 @@ class ObservableRgb {
          * @param {number} b
          */
   constructor(r, g, b) {
-    this.R = ko.observable(r);
-    this.G = ko.observable(g);
-    this.B = ko.observable(b);
+    const self = this;
+    self.R = ko.observable(r);
+    self.G = ko.observable(g);
+    self.B = ko.observable(b);
   }
 
   /**
