@@ -89,10 +89,17 @@
           </div>
         </div>
 
-      <div class="top-mar-yy">
         <h3 class="row">The Closest Color is...</h3>
-        <div class="row">
-          <h2 class="col" data-bind="text: closestColor().Name"></h2>
+          <div class="flex">
+            <div class="big-color-block top-mar-y" data-bind="style: { 'background-color' : inputColor.toRgbColor().StyleFormat }">
+                <strong class="color-label color-name" data-bind="text:  inputColor.toRgbColor().Name"></strong>
+                <strong class="color-label" data-bind="text: inputColor.toRgbColor().StyleFormat"></strong>
+            </div>
+            <div class="big-color-block top-mar-y" data-bind="style: { 'background-color' : closestColor().StyleFormat }">
+                <strong class="color-label color-name" data-bind="text: closestColor().Name"></strong>
+                <strong class="color-label" data-bind="text: closestColor().StyleFormat"></strong>
+            </div>
+          </div>
         </div>
       </div>
   </div>
